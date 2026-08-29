@@ -11,7 +11,7 @@ export function Footer() {
           <span> / {profile.title}</span>
         </p>
         <p className="site-footer__copy">
-          © {year} — Built with Next.js, Three.js & a stubborn attention to systems ^&^. 
+          © {year} — Built with Next.js, Three.js & a stubborn attention to systems .
         </p>
         <a href="#top" className="site-footer__top" data-cursor="hover">
           Back to top ↑
