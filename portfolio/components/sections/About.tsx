@@ -27,20 +27,21 @@ export function About() {
             </Reveal>
             <Reveal delay={0.16}>
               <p className="about__aside">
-                Currently at Koolskools, I spend my days on APIs, data pipelines,
-                and the unglamorous work of making old systems behave like new
-                ones — then wiring AI into places it actually earns its keep.
+                Now based in Paris at 42, after two years building production
+                platforms at Koolskools — from modernizing legacy Django
+                monoliths and AWS infrastructure to shipping applied AI across
+                web and mobile.
               </p>
             </Reveal>
             <Reveal delay={0.22}>
               <dl className="about__facts">
                 <div>
                   <dt>Focus</dt>
-                  <dd>Backend · Mobile · Applied AI</dd>
+                  <dd>Full-Stack · Mobile · Applied AI</dd>
                 </div>
                 <div>
                   <dt>Stack</dt>
-                  <dd>Django · React · React Native</dd>
+                  <dd>Django · React · React Native · AWS</dd>
                 </div>
                 <div>
                   <dt>Based</dt>

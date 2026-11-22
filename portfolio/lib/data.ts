@@ -7,18 +7,18 @@ export const profile = {
   name: "Aymane Achfennar",
   firstName: "Aymane",
   lastName: "Achfennar",
-  title: "Software Engineer",
+  title: "Full-Stack & AI Software Engineer",
   email: "aymaneachfennar@gmail.com",
-  // phone: "+212 623555728",
-  // phoneHref: "tel:+212623555728",
-  location: "Casablanca, Morocco",
-  coords: { lat: "35.57° N", lng: "5.37° W" },
+  // phone: "+33 7 52 93 35 54",
+  // phoneHref: "tel:+33752933554",
+  location: "Paris, France",
+  coords: { lat: "48.86° N", lng: "2.35° E" },
   linkedin: "https://www.linkedin.com/in/aymane-achfennar/",
   github: "https://github.com/AYACHFE",
   tagline:
-    "Engineering scalable web and mobile systems — from legacy modernization to AI-powered products.",
+    "Engineering scalable web, mobile, and AI-powered systems — from legacy modernization to cloud production.",
   summary:
-    "Software Engineer with experience building scalable web and mobile applications using Django, React, and React Native. Skilled in backend development, system modernization, and integrating AI-powered features using modern cloud infrastructure.",
+    "Full-Stack & AI Software Engineer with 2 years of experience building scalable web and mobile applications using Python (Django), React, and React Native. Strong expertise in legacy architecture modernization, cloud deployment (Docker, AWS), and integrating AI-powered features.",
 } as const;
 
 export const experience = [
@@ -26,78 +26,118 @@ export const experience = [
     id: "se",
     role: "Software Engineer",
     company: "Koolskools",
-    period: "04/2025 — Present",
+    location: "Casablanca",
+    period: "04/2025 — 10/2026",
     start: "04/2025",
-    current: true,
+    current: false,
     points: [
-      "Design and ship backend services and AI-enabled product features used across the platform.",
-      "Build scalable APIs and data pipelines that keep web and mobile clients in sync.",
-      "Contribute to the React Native mobile app, bridging backend contracts with native UX.",
+      "Developed Django backend services and integrated AI features to automate business workflows.",
+      "Designed scalable REST APIs and data pipelines ensuring platform reliability and performance.",
+      "Built cross-platform mobile features with React Native, enhancing the student experience across iOS and Android.",
     ],
   },
   {
     id: "intern",
     role: "Software Engineer Intern",
     company: "Koolskools",
+    location: "Casablanca",
     period: "10/2024 — 04/2025",
     start: "10/2024",
     current: false,
     points: [
-      "Led the migration from Python 2.7 → 3.12 and Django 1.8 → 5, unblocking modern tooling and security patches.",
-      "Modernized infrastructure: MySQL 5 upgrade, Docker containerization, and AWS deployment.",
-      "Delivered full-stack work across Django APIs and React interfaces during the transition.",
+      "Led the platform migration from Python 2.7 to 3.12 and Django 1.8 to Django 5.",
+      "Modernized infrastructure (MySQL upgrade, Docker containerization) for deployment on AWS.",
+      "Contributed to full-stack development with Django and React.",
     ],
+  },
+] as const;
+
+export const platforms = [
+  {
+    name: "Koolskools",
+    url: "https://koolskools.com",
+    domain: "koolskools.com",
+    mobile: 'iOS & Android apps — "Koolskools"',
+    description:
+      "Educational platform connecting teachers and students across web and mobile.",
+  },
+  {
+    name: "Revizoo",
+    url: "https://revizoo.com",
+    domain: "revizoo.com",
+    mobile: 'iOS & Android apps — "Revizoo"',
+    description:
+      "AI-assisted learning and revision platform available on web, iOS, and Android.",
   },
 ] as const;
 
 export const projects = [
   {
     id: "01",
-    title: "Legacy System Modernization & Cloud Migration",
+    title: "AI Exam Generation & Student Progress Platform",
     description:
-      "End-to-end modernization of a production Python/Django stack — language and framework upgrades, database migration, containerization, and a move onto AWS without freezing product delivery.",
-    tags: ["Python", "Django", "Docker", "AWS", "MySQL"],
-  },
-  {
-    id: "02",
-    title: "AI-Powered Exam and Student Monitoring System",
-    description:
-      "Intelligent monitoring layer for assessments: backend pipelines, model-assisted signals, and a web console that helps educators catch issues in real time rather than after the fact.",
+      "Platform enabling teachers to automatically generate exams, assign personalized exercises, and track student progress in real time.",
     tags: ["Django", "React", "Python", "AI", "PostgreSQL"],
   },
   {
-    id: "03",
-    title: "AI-Enhanced Educational Mobile App",
+    id: "02",
+    title: "AI-Assisted Educational Mobile App",
     description:
-      "React Native client backed by Django services, weaving AI-assisted learning features into a mobile experience used by students day to day.",
-    tags: ["React Native", "Django", "REST", "AI"],
+      "Mobile learning modules offering adaptive exercises and automated, intelligent pedagogical feedback across iOS and Android.",
+    tags: ["React Native", "Django", "REST API", "AI"],
+  },
+  {
+    id: "03",
+    title: "Legacy System Modernization & AWS Cloud Migration",
+    description:
+      "Refactored a monolithic legacy Python/Django application (2.7 → 3.12, Django 1.8 → 5) and migrated it to containerized infrastructure on AWS, strengthening security and maintainability.",
+    tags: ["Python", "Django", "Docker", "AWS", "MySQL"],
   },
 ] as const;
 
-export const education = {
-  school: "1337 Coding School",
-  campus: "Tetouane",
-  field: "Computer Science",
-  period: "2022 — 2025",
-  note: "Peer-to-peer, project-based curriculum in the 42 Network. Emphasis on systems, software craft, and shipping under constraints.",
-} as const;
+export const education = [
+  {
+    id: "42-paris",
+    school: "42 Paris",
+    campus: "Paris",
+    field: "Computer Science",
+    period: "2026 — Present",
+    current: true,
+    note: "Peer-to-peer, project-based curriculum in the 42 Network focused on systems programming, software architecture, and collaborative engineering.",
+  },
+  {
+    id: "1337-med",
+    school: "1337 Med",
+    campus: "Tetouane",
+    field: "Computer Science",
+    period: "2022 — 2025",
+    current: false,
+    note: "Peer-to-peer, project-based curriculum in the 42 Network. Emphasis on systems, software craft, and shipping under constraints.",
+  },
+] as const;
 
 export const skills = [
   {
-    category: "Frameworks",
-    items: ["Django", "React", "React Native", "Next.js"],
+    category: "Languages",
+    items: ["Python", "JavaScript (ES6+)", "TypeScript", "SQL", "C", "C++"],
   },
   {
-    category: "Languages",
-    items: ["Python", "JavaScript", "C", "C++"],
+    category: "Frameworks",
+    items: [
+      "Django",
+      "Django REST Framework",
+      "React",
+      "React Native",
+      "Next.js",
+    ],
   },
   {
     category: "Databases",
-    items: ["MySQL", "PostgreSQL"],
+    items: ["PostgreSQL", "MySQL"],
   },
   {
-    category: "DevOps",
-    items: ["Docker", "AWS", "Git"],
+    category: "Cloud & DevOps",
+    items: ["Docker", "AWS (EC2, S3, RDS)", "Git", "Linux", "CI/CD"],
   },
 ] as const;
 

@@ -1,4 +1,4 @@
-import { experience } from "@/lib/data";
+import { experience, platforms } from "@/lib/data";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 
@@ -20,6 +20,7 @@ export function Experience() {
                     <span className={job.current ? "is-live" : ""}>
                       {job.period}
                     </span>
+                    <span className="timeline__loc">{job.location}</span>
                     {job.current && <em>Current</em>}
                   </div>
                   <h3>
@@ -36,6 +37,39 @@ export function Experience() {
             </li>
           ))}
         </ol>
+
+        <Reveal delay={0.16}>
+          <div className="platforms">
+            <div className="platforms__header">
+              <p className="platforms__kicker">Shipped Platforms</p>
+              <p className="platforms__sub">
+                Live on the web, with native iOS &amp; Android apps available
+                under the same names.
+              </p>
+            </div>
+            <div className="platforms__grid">
+              {platforms.map((platform) => (
+                <a
+                  key={platform.name}
+                  href={platform.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="platform-card"
+                  data-cursor="hover"
+                >
+                  <div className="platform-card__top">
+                    <span className="platform-card__name">{platform.name}</span>
+                    <span className="platform-card__url">
+                      {platform.domain} ↗
+                    </span>
+                  </div>
+                  <p className="platform-card__desc">{platform.description}</p>
+                  <p className="platform-card__mobile">{platform.mobile}</p>
+                </a>
+              ))}
+            </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

@@ -10,19 +10,34 @@ export function Education() {
           <SectionLabel index="05" label="Education" />
         </Reveal>
 
-        <Reveal delay={0.08}>
-          <article className="edu-card">
-            <div className="edu-card__top">
-              <p className="edu-card__period">{education.period}</p>
-              <p className="edu-card__field">{education.field}</p>
-            </div>
-            <h2>
-              {education.school}
-              <span> {education.campus}</span>
-            </h2>
-            <p>{education.note}</p>
-          </article>
-        </Reveal>
+        <div className="edu-list">
+          {education.map((item, i) => (
+            <Reveal key={item.id} delay={0.08 * (i + 1)}>
+              <article className="edu-card">
+                <div className="edu-card__top">
+                  <div className="edu-card__meta">
+                    <p
+                      className={`edu-card__period ${item.current ? "is-live" : ""}`}
+                    >
+                      {item.period}
+                    </p>
+                    {item.current && (
+                      <em className="edu-card__badge">Current</em>
+                    )}
+                  </div>
+                  <p className="edu-card__field">{item.field}</p>
+                </div>
+                <h2>
+                  {item.school}
+                  {!item.school.includes(item.campus) && (
+                    <span> ({item.campus})</span>
+                  )}
+                </h2>
+                <p>{item.note}</p>
+              </article>
+            </Reveal>
+          ))}
+        </div>
       </div>
     </section>
   );

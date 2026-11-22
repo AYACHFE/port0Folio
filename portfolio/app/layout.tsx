@@ -21,16 +21,21 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Aymane Achfennar — Software Engineer",
+  title: "Aymane Achfennar — Full-Stack & AI Software Engineer",
   description:
-    "Software Engineer building scalable web and mobile applications with Django, React, and React Native. Backend, system modernization, and AI-powered features.",
+    "Full-Stack & AI Software Engineer with 2 years of experience building scalable web and mobile applications with Python (Django), React, React Native, Docker, and AWS.",
   authors: [{ name: "Aymane Achfennar" }],
   keywords: [
     "Aymane Achfennar",
-    "Software Engineer",
+    "Full-Stack Software Engineer",
+    "AI Software Engineer",
     "Django",
     "React",
     "React Native",
+    "TypeScript",
+    "Docker",
+    "AWS",
+    "42 Paris",
     "Portfolio",
   ],
 };
