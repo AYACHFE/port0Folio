@@ -16,9 +16,6 @@ import { Contact } from "@/components/sections/Contact";
 export default function Home() {
   return (
     <>
-      <a className="skip-link" href="#about">
-        Skip to content
-      </a>
       <Loader />
       <CustomCursor />
       <GrainOverlay />

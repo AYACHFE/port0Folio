@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { profile } from "@/lib/data";
+import { sharedProfile } from "@/lib/data";
+import { useLanguage } from "@/components/LanguageProvider";
 
 export function Loader() {
   const [visible, setVisible] = useState(true);
   const [progress, setProgress] = useState(0);
+  const { t } = useLanguage();
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -35,8 +37,8 @@ export function Loader() {
 
   return (
     <div className="loader" role="status" aria-live="polite">
-      <p className="loader__kicker">Initializing interface</p>
-      <p className="loader__name">{profile.name}</p>
+      <p className="loader__kicker">{t.loaderKicker}</p>
+      <p className="loader__name">{sharedProfile.name}</p>
       <div className="loader__bar">
         <span style={{ width: `${progress}%` }} />
       </div>

@@ -1,18 +1,22 @@
-import { experience, platforms } from "@/lib/data";
+"use client";
+
+import { useLanguage } from "@/components/LanguageProvider";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 
 export function Experience() {
+  const { t } = useLanguage();
+
   return (
     <section id="experience" className="section experience">
       <div className="section__inner">
         <Reveal>
-          <SectionLabel index="03" label="Experience" />
-          <h2 className="section__title">Where the work happened.</h2>
+          <SectionLabel index="03" label={t.experience.label} />
+          <h2 className="section__title">{t.experience.title}</h2>
         </Reveal>
 
         <ol className="timeline">
-          {experience.map((job, i) => (
+          {t.experience.jobs.map((job, i) => (
             <li key={job.id} className="timeline__item">
               <Reveal delay={i * 0.08}>
                 <div className="timeline__card">
@@ -21,7 +25,7 @@ export function Experience() {
                       {job.period}
                     </span>
                     <span className="timeline__loc">{job.location}</span>
-                    {job.current && <em>Current</em>}
+                    {job.current && <em>{t.experience.currentBadge}</em>}
                   </div>
                   <h3>
                     {job.role}
@@ -41,31 +45,60 @@ export function Experience() {
         <Reveal delay={0.16}>
           <div className="platforms">
             <div className="platforms__header">
-              <p className="platforms__kicker">Shipped Platforms</p>
-              <p className="platforms__sub">
-                Live on the web, with native iOS &amp; Android apps available
-                under the same names.
-              </p>
+              <p className="platforms__kicker">{t.experience.platformsKicker}</p>
+              <p className="platforms__sub">{t.experience.platformsSub}</p>
             </div>
             <div className="platforms__grid">
-              {platforms.map((platform) => (
-                <a
-                  key={platform.name}
-                  href={platform.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="platform-card"
-                  data-cursor="hover"
-                >
+              {t.experience.platforms.map((platform) => (
+                <article key={platform.name} className="platform-card">
                   <div className="platform-card__top">
                     <span className="platform-card__name">{platform.name}</span>
-                    <span className="platform-card__url">
+                    <a
+                      href={platform.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="platform-card__url"
+                      data-cursor="hover"
+                    >
                       {platform.domain} ↗
-                    </span>
+                    </a>
                   </div>
                   <p className="platform-card__desc">{platform.description}</p>
-                  <p className="platform-card__mobile">{platform.mobile}</p>
-                </a>
+                  <p className="platform-card__mobile">{platform.mobileNote}</p>
+                  <div className="platform-card__links">
+                    <a
+                      href={platform.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="platform-pill"
+                      data-cursor="hover"
+                    >
+                      {t.experience.platformLinksLabel.web} ↗
+                    </a>
+                    {platform.iosUrl && (
+                      <a
+                        href={platform.iosUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="platform-pill"
+                        data-cursor="hover"
+                      >
+                        {t.experience.platformLinksLabel.ios} ↗
+                      </a>
+                    )}
+                    {platform.androidUrl && (
+                      <a
+                        href={platform.androidUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="platform-pill"
+                        data-cursor="hover"
+                      >
+                        {t.experience.platformLinksLabel.android} ↗
+                      </a>
+                    )}
+                  </div>
+                </article>
               ))}
             </div>
           </div>

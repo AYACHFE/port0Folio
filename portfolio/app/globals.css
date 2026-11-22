@@ -310,7 +310,7 @@ textarea {
 .nav__links {
   display: flex;
   justify-content: center;
-  gap: 28px;
+  gap: 24px;
 }
 
 .nav__links a,
@@ -325,6 +325,39 @@ textarea {
 
 .nav__links a:hover,
 .nav__email:hover {
+  color: var(--accent);
+}
+
+.nav__right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(18, 18, 27, 0.55);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+}
+
+.lang-switch button {
+  padding: 0;
+  background: none;
+  border: 0;
+  color: var(--muted);
+  transition: color 0.2s ease;
+}
+
+.lang-switch button:hover,
+.lang-switch button.is-active {
   color: var(--accent);
 }
 
@@ -846,6 +879,11 @@ textarea {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--accent);
+  transition: opacity 0.2s ease;
+}
+
+.platform-card__url:hover {
+  opacity: 0.8;
 }
 
 .platform-card__desc {
@@ -855,13 +893,39 @@ textarea {
 }
 
 .platform-card__mobile {
-  margin: auto 0 0;
-  padding-top: 8px;
+  margin: 0;
   font-family: var(--font-mono);
   font-size: 11px;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   color: var(--ink);
   opacity: 0.85;
+}
+
+.platform-card__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 8px;
+}
+
+.platform-pill {
+  padding: 6px 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: rgba(7, 7, 12, 0.5);
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+
+.platform-pill:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-dim);
 }
 
 /* ------------------------------------------------------------------ */
@@ -1162,6 +1226,20 @@ textarea {
   cursor: pointer;
 }
 
+.contact__form .btn:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.contact__hp {
+  position: absolute !important;
+  left: -9999px !important;
+  width: 1px !important;
+  height: 1px !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
 .contact__note {
   margin: 0;
   font-size: 13px;
@@ -1169,6 +1247,10 @@ textarea {
   letter-spacing: 0;
   text-transform: none;
   font-family: var(--font-sans);
+}
+
+.contact__note--success {
+  color: var(--accent);
 }
 
 .contact__note a {

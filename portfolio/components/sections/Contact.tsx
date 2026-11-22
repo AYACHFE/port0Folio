@@ -1,63 +1,91 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { profile } from "@/lib/data";
+import { sharedProfile } from "@/lib/data";
+import { useLanguage } from "@/components/LanguageProvider";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 
-export function Contact() {
-  const [sent, setSent] = useState(false);
+type SubmitState = "idle" | "submitting" | "sent" | "fallback";
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+export function Contact() {
+  const { t } = useLanguage();
+  const [status, setStatus] = useState<SubmitState>("idle");
+  const [fallbackHref, setFallbackHref] = useState<string>(
+    `mailto:${sharedProfile.email}`,
+  );
+
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSent(true);
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    const name = String(data.get("name") || "").trim();
+    const email = String(data.get("email") || "").trim();
+    const message = String(data.get("message") || "").trim();
+    const website = String(data.get("website") || "").trim();
+
+    const mailtoUrl = `mailto:${sharedProfile.email}?subject=${encodeURIComponent(
+      `Portfolio — ${name}`,
+    )}&body=${encodeURIComponent(`${message}\n\n— ${name} (${email})`)}`;
+    setFallbackHref(mailtoUrl);
+    setStatus("submitting");
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, message, website }),
+      });
+
+      if (res.ok) {
+        setStatus("sent");
+        form.reset();
+        return;
+      }
+
+      setStatus("fallback");
+    } catch {
+      setStatus("fallback");
+    }
   };
 
   return (
     <section id="contact" className="section contact">
       <div className="section__inner">
         <Reveal>
-          <SectionLabel index="07" label="Contact" />
-          <h2 className="section__title">
-            Let’s talk systems, migrations, or the next product.
-          </h2>
+          <SectionLabel index="07" label={t.contact.label} />
+          <h2 className="section__title">{t.contact.title}</h2>
         </Reveal>
 
         <div className="contact__layout">
           <Reveal>
             <ul className="contact__channels">
               <li>
-                <span>Email</span>
-                <a href={`mailto:${profile.email}`} data-cursor="hover">
-                  {profile.email}
+                <span>{t.contact.channels.email}</span>
+                <a href={`mailto:${sharedProfile.email}`} data-cursor="hover">
+                  {sharedProfile.email}
                 </a>
               </li>
-              {/* <li>
-                <span>Phone</span>
-                <a href={profile.phoneHref} data-cursor="hover">
-                  {profile.phone}
-                </a>
-              </li> */}
               <li>
-                <span>LinkedIn</span>
+                <span>{t.contact.channels.linkedin}</span>
                 <a
-                  href={profile.linkedin}
+                  href={sharedProfile.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
                   data-cursor="hover"
                 >
-                  Connect
+                  {t.contact.channels.linkedinCta}
                 </a>
               </li>
               <li>
-                <span>GitHub</span>
+                <span>{t.contact.channels.github}</span>
                 <a
-                  href={profile.github}
+                  href={sharedProfile.github}
                   target="_blank"
                   rel="noopener noreferrer"
                   data-cursor="hover"
                 >
-                  View profile
+                  {t.contact.channels.githubCta}
                 </a>
               </li>
             </ul>
@@ -65,35 +93,60 @@ export function Contact() {
 
           <Reveal delay={0.1}>
             <form className="contact__form" onSubmit={onSubmit}>
+              <input
+                type="text"
+                name="website"
+                tabIndex={-1}
+                autoComplete="off"
+                className="contact__hp"
+                aria-hidden="true"
+              />
               <label>
-                Name
-                <input name="name" type="text" placeholder="Your name" required />
+                {t.contact.form.nameLabel}
+                <input
+                  name="name"
+                  type="text"
+                  placeholder={t.contact.form.namePlaceholder}
+                  required
+                />
               </label>
               <label>
-                Email
+                {t.contact.form.emailLabel}
                 <input
                   name="email"
                   type="email"
-                  placeholder="you@domain.com"
+                  placeholder={t.contact.form.emailPlaceholder}
                   required
                 />
               </label>
               <label>
-                Message
+                {t.contact.form.messageLabel}
                 <textarea
                   name="message"
                   rows={5}
-                  placeholder="What are we building?"
+                  placeholder={t.contact.form.messagePlaceholder}
                   required
                 />
               </label>
-              <button type="submit" className="btn btn--solid" data-cursor="hover">
-                {sent ? "Queued — form is a preview" : "Send message"}
+              <button
+                type="submit"
+                className="btn btn--solid"
+                disabled={status === "submitting"}
+                data-cursor="hover"
+              >
+                {status === "submitting"
+                  ? t.contact.form.submitting
+                  : t.contact.form.submit}
               </button>
-              {sent && (
-                <p className="contact__note">
-                  This form is a visual placeholder. Reach me directly at{" "}
-                  <a href={`mailto:${profile.email}`}>{profile.email}</a>.
+              {status === "sent" && (
+                <p className="contact__note contact__note--success" role="status">
+                  {t.contact.form.success}
+                </p>
+              )}
+              {status === "fallback" && (
+                <p className="contact__note" role="status">
+                  {t.contact.form.errorFallback}{" "}
+                  <a href={fallbackHref}>{t.contact.form.mailtoCta}</a>
                 </p>
               )}
             </form>

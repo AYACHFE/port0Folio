@@ -1,20 +1,24 @@
-import { profile } from "@/lib/data";
+"use client";
+
+import { sharedProfile } from "@/lib/data";
+import { useLanguage } from "@/components/LanguageProvider";
 
 export function Footer() {
   const year = new Date().getFullYear();
+  const { t } = useLanguage();
 
   return (
     <footer className="site-footer">
       <div className="site-footer__row">
         <p className="site-footer__name">
-          {profile.name}
-          <span> / {profile.title}</span>
+          {sharedProfile.name}
+          <span> / {t.footer.role}</span>
         </p>
         <p className="site-footer__copy">
-          © {year} — Built with Next.js, Three.js & a stubborn attention to systems .
+          © {year} — {t.footer.copy}
         </p>
         <a href="#top" className="site-footer__top" data-cursor="hover">
-          Back to top ↑
+          {t.footer.top}
         </a>
       </div>
     </footer>

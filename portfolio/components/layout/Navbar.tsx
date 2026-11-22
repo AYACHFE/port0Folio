@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { nav, profile } from "@/lib/data";
+import { sharedProfile } from "@/lib/data";
+import { useLanguage } from "@/components/LanguageProvider";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const { lang, setLang, t } = useLanguage();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -22,52 +24,84 @@ export function Navbar() {
   }, [open]);
 
   return (
-    <header className={`nav ${scrolled ? "nav--scrolled" : ""}`}>
-      <a href="#top" className="nav__logo" data-cursor="hover">
-        <span className="nav__mark" aria-hidden="true" />
-        AA
+    <>
+      <a className="skip-link" href="#about">
+        {t.skipLink}
       </a>
+      <header className={`nav ${scrolled ? "nav--scrolled" : ""}`}>
+        <a href="#top" className="nav__logo" data-cursor="hover">
+          <span className="nav__mark" aria-hidden="true" />
+          AA
+        </a>
 
-      <nav className="nav__links" aria-label="Primary">
-        {nav.map((item) => (
-          <a key={item.href} href={item.href} data-cursor="hover">
-            {item.label}
-          </a>
-        ))}
-      </nav>
+        <nav className="nav__links" aria-label="Primary">
+          {t.nav.map((item) => (
+            <a key={item.href} href={item.href} data-cursor="hover">
+              {item.label}
+            </a>
+          ))}
+        </nav>
 
-      <a
-        className="nav__email"
-        href={`mailto:${profile.email}`}
-        data-cursor="hover"
-      >
-        {profile.email}
-      </a>
+        <div className="nav__right">
+          <div className="lang-switch" role="group" aria-label="Language">
+            <button
+              type="button"
+              className={lang === "fr" ? "is-active" : ""}
+              aria-pressed={lang === "fr"}
+              onClick={() => setLang("fr")}
+              data-cursor="hover"
+            >
+              FR
+            </button>
+            <span aria-hidden="true">/</span>
+            <button
+              type="button"
+              className={lang === "en" ? "is-active" : ""}
+              aria-pressed={lang === "en"}
+              onClick={() => setLang("en")}
+              data-cursor="hover"
+            >
+              EN
+            </button>
+          </div>
 
-      <button
-        className={`nav__burger ${open ? "is-open" : ""}`}
-        aria-label={open ? "Close menu" : "Open menu"}
-        aria-expanded={open}
-        onClick={() => setOpen((v) => !v)}
-      >
-        <span />
-        <span />
-      </button>
-
-      <div className={`nav__drawer ${open ? "is-open" : ""}`}>
-        {nav.map((item) => (
           <a
-            key={item.href}
-            href={item.href}
+            className="nav__email"
+            href={`mailto:${sharedProfile.email}`}
+            data-cursor="hover"
+          >
+            {sharedProfile.email}
+          </a>
+
+          <button
+            className={`nav__burger ${open ? "is-open" : ""}`}
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+          >
+            <span />
+            <span />
+          </button>
+        </div>
+
+        <div className={`nav__drawer ${open ? "is-open" : ""}`}>
+          {t.nav.map((item) => (
+            <a
+              key={item.href}
+              href={item.href}
+              onClick={() => setOpen(false)}
+            >
+              {item.label}
+            </a>
+          ))}
+          <a
+            href={`mailto:${sharedProfile.email}`}
             onClick={() => setOpen(false)}
           >
-            {item.label}
+            {sharedProfile.email}
           </a>
-        ))}
-        <a href={`mailto:${profile.email}`} onClick={() => setOpen(false)}>
-          {profile.email}
-        </a>
-      </div>
-    </header>
+        </div>
+      </header>
+    </>
   );
 }

@@ -1,9 +1,9 @@
 "use client";
 
 import { useRef, type MouseEvent } from "react";
-import type { projects } from "@/lib/data";
+import type { LocalizedContent } from "@/lib/data";
 
-type Project = (typeof projects)[number];
+type Project = LocalizedContent["projects"]["items"][number];
 
 export function ProjectCard({ project }: { project: Project }) {
   const ref = useRef<HTMLElement>(null);

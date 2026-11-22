@@ -2,11 +2,13 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import { profile } from "@/lib/data";
+import { sharedProfile } from "@/lib/data";
+import { useLanguage } from "@/components/LanguageProvider";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 
 export function Hero() {
   const root = useRef<HTMLElement>(null);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const el = root.current;
@@ -52,32 +54,36 @@ export function Hero() {
     <section ref={root} id="top" className="hero">
       <div className="hero__grid">
         <p className="hero__kicker">
-          <span>01</span> / Introduction
+          <span>01</span> / {t.hero.kicker}
         </p>
         <p className="hero__status">
           <span className="pulse" />
-          System online
+          {t.hero.status}
         </p>
 
         <h1 className="hero__name">
           <span className="hero__clip">
-            <span>{profile.firstName}</span>
+            <span>{sharedProfile.firstName}</span>
           </span>
           <span className="hero__clip">
-            <span>{profile.lastName}</span>
+            <span>{sharedProfile.lastName}</span>
           </span>
         </h1>
 
-        <p className="hero__title">{profile.title}</p>
-        <p className="hero__tagline">{profile.tagline}</p>
+        <p className="hero__title">{t.hero.title}</p>
+        <p className="hero__tagline">{t.hero.tagline}</p>
 
         <div className="hero__actions">
-          <MagneticButton href="#contact">Contact</MagneticButton>
-          {/* <MagneticButton href="/Aymane_Achfennar_CV.pdf" variant="ghost" download>
-            Download CV
-          </MagneticButton> */}
-          <MagneticButton href={profile.github} variant="line" external>
-            GitHub
+          <MagneticButton href="#contact">{t.hero.contactCta}</MagneticButton>
+          <MagneticButton
+            href={sharedProfile.cvHref}
+            variant="ghost"
+            download
+          >
+            {t.hero.cvCta}
+          </MagneticButton>
+          <MagneticButton href={sharedProfile.github} variant="line" external>
+            {t.hero.githubCta}
           </MagneticButton>
         </div>
       </div>
@@ -85,18 +91,18 @@ export function Hero() {
       <div className="hero__hud">
         <div>
           <span>Lat</span>
-          {profile.coords.lat}
+          {sharedProfile.coords.lat}
         </div>
         <div>
           <span>Lng</span>
-          {profile.coords.lng}
+          {sharedProfile.coords.lng}
         </div>
         <div>
-          <span>Node</span>
-          {profile.location}
+          <span>{t.hero.hudNodeLabel}</span>
+          {t.hero.location}
         </div>
         <a href="#about" className="hero__scroll" data-cursor="hover">
-          <span>Scroll</span>
+          <span>{t.hero.scroll}</span>
           <i />
         </a>
       </div>

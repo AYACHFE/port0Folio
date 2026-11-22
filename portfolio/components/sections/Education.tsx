@@ -1,17 +1,21 @@
-import { education } from "@/lib/data";
+"use client";
+
+import { useLanguage } from "@/components/LanguageProvider";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 
 export function Education() {
+  const { t } = useLanguage();
+
   return (
     <section id="education" className="section education">
       <div className="section__inner">
         <Reveal>
-          <SectionLabel index="05" label="Education" />
+          <SectionLabel index="05" label={t.education.label} />
         </Reveal>
 
         <div className="edu-list">
-          {education.map((item, i) => (
+          {t.education.items.map((item, i) => (
             <Reveal key={item.id} delay={0.08 * (i + 1)}>
               <article className="edu-card">
                 <div className="edu-card__top">
@@ -22,7 +26,9 @@ export function Education() {
                       {item.period}
                     </p>
                     {item.current && (
-                      <em className="edu-card__badge">Current</em>
+                      <em className="edu-card__badge">
+                        {t.education.currentBadge}
+                      </em>
                     )}
                   </div>
                   <p className="edu-card__field">{item.field}</p>
