@@ -51,13 +51,15 @@ export async function POST(request: Request) {
     );
   }
 
-  const toEmail = process.env.CONTACT_TO_EMAIL || sharedProfile.email;
-  const resendKey = process.env.RESEND_API_KEY;
-  const formspreeEndpoint = process.env.FORMSPREE_ENDPOINT;
+  const toEmail =
+    process.env.CONTACT_TO_EMAIL?.trim() || sharedProfile.email;
+  const resendKey = process.env.RESEND_API_KEY?.trim();
+  const formspreeEndpoint = process.env.FORMSPREE_ENDPOINT?.trim();
 
   if (resendKey) {
     const fromEmail =
-      process.env.CONTACT_FROM_EMAIL || "Portfolio <onboarding@resend.dev>";
+      process.env.CONTACT_FROM_EMAIL?.trim() ||
+      "Portfolio <onboarding@resend.dev>";
 
     const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
@@ -75,8 +77,16 @@ export async function POST(request: Request) {
     });
 
     if (!res.ok) {
+      const errText = await res.text().catch(() => "");
+      console.error("[contact] Resend error:", res.status, errText);
       return NextResponse.json(
-        { ok: false, code: "DELIVERY_FAILED" },
+        {
+          ok: false,
+          code: "DELIVERY_FAILED",
+          ...(process.env.NODE_ENV === "development"
+            ? { detail: errText || `HTTP ${res.status}` }
+            : {}),
+        },
         { status: 502 },
       );
     }
@@ -91,12 +101,20 @@ export async function POST(request: Request) {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ name, email, message }),
+      body: JSON.stringify({ name, email, message, _replyto: email }),
     });
 
     if (!res.ok) {
+      const errText = await res.text().catch(() => "");
+      console.error("[contact] Formspree error:", res.status, errText);
       return NextResponse.json(
-        { ok: false, code: "DELIVERY_FAILED" },
+        {
+          ok: false,
+          code: "DELIVERY_FAILED",
+          ...(process.env.NODE_ENV === "development"
+            ? { detail: errText || `HTTP ${res.status}` }
+            : {}),
+        },
         { status: 502 },
       );
     }
